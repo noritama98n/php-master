@@ -1,5 +1,5 @@
 <?php
-$time = date('G');
+$time = date('G' + 9);
 
 if ($time < 12){
     echo '午前です';
