@@ -23,25 +23,23 @@ $staffs= array(
     4 => array(
         'name' => '中村',
         'team' => 'ceo',
-        'pass' => '3333'
-        ),
+        'pass' => '4444'
+    ),
     5 => array(
         'name' => '田中',
         'team' => 'ceo',
         'pass' => '5555'
         )
-
-    );
-
-?>
-
+    );?>
+    
 <html>
     <head>
        <meta charset="UTF-8">
     </head>
     <body>
         <h1>ログインしてください</h1>
-        <form action="task.php" method="POST">
+
+        <form action="form.php" method="POST">
             <label for="user_name">名前</label>
             <select name="user_name" id="user_name">
             <?php foreach ($staffs as $var){ ?>
@@ -50,7 +48,27 @@ $staffs= array(
         </select>
             <label for="password">パスワード</label>
             <input type="text" name="password" id="password">
-            <input type="submit">
+            <input type="submit" name="login" value="ログイン">
         </form>
+        <?php
+        //session_start();
+        //$error_message = '';
+        if(isset($_POST['login'])){
+            if($_POST['user_name'] == $var['name'] && $_POST['password']== $var['pass']) {
+            echo 'ok';
+           // $_SESSION["USER"] = 'user';
+           // header("Location: task.php");
+            //exit;
+            } else{
+                echo 'no';
+               //$error_message = 'no';
+            }
+            
+        }
+       
+        
+        ?>
+
+
     </body>
 </html>

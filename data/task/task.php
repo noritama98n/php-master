@@ -1,5 +1,11 @@
-<?php
-//postされてきたデータを取得する
-$name = $_POST[name];
-$password = $_POST[password];
-?>
+
+
+
+<html>
+    <head>
+        <meta charset="UTF8">
+    </head>
+    <body>
+        
+    </body>
+</html>
