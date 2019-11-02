@@ -1,8 +1,4 @@
-
 <?php
-$name = $_POST['user_name'];
-$pass = $_POST['password'];
-
 $staffs= array(
     0 => array(
     'name' => '社長',
@@ -34,35 +30,25 @@ $staffs= array(
         'team' => 'gen',
         'pass' => '5555'
         )
-    );
-    $task = array(
-       'sale'  => array('社訪問','社資料送付'),
-       'acc'  => array('帳簿処理','請求書発行','先月の締め'),
-       'gen'  => array('求人開始','退職予定者の処理作業')
-    );
-
-    foreach ($staffs as $var){ 
-    if($name == $var['name'] && $pass == $var['pass']) {
-     if($var['team']= 'sale'){
-         
-     }
-   
-    } else{
-        $err = 'ng';
-       
-    }
-}
-echo $err;
-
-
-
-?>
-
+    );?>
+    
 <html>
     <head>
-        <meta charset="UTF8">
+       <meta charset="UTF-8">
     </head>
     <body>
-        
+        <h1>ログインしてください</h1>
+
+        <form action="task2.php" method="POST">
+            <label for="user_name">名前</label>
+            <select name="user_name" id="user_name">
+            <?php foreach ($staffs as $var){ ?>
+            <option value="<?php echo $var['name'];?>"><?php echo htmlspecialchars($var['name'], ENT_QUOTES, 'UTF-8');?></option>
+        <?php } ?>
+        </select>
+            <label for="password">パスワード</label>
+            <input type="text" name="password" id="password">
+            <input type="submit" value="ログイン">
+        </form>
     </body>
 </html>
