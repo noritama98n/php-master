@@ -1,0 +1,48 @@
+<?php 
+    
+    $dsn = "mysql:host=db; dbname=sample";
+    $user = 'user';
+    $password ='userpass';
+
+    try{
+
+        $dbh = new PDO($dsn, $user, $password);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM user";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $data = array();
+        $count = $stmt->rowCount();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $data[] = $row;
+        }
+        echo '処理に成功しました。';
+    }catch(PDOException $e){
+        print($e->getMessage());
+        die();
+    }
+    
+
+    ?>
+
+    <html>
+        <body>
+            <h1>会員データ一覧</h1>
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>名前</th>
+                    <th>年齢</th>
+                    <th>メール</th>
+                </tr>
+                <?php foreach ($data as $row):?>
+                <tr>
+                    <td><?php echo $row['id'];?></td>
+                    <td><?php echo $row['name'];?></td>
+                    <td><?php echo $row['age'];?></td>
+                    <td><?php echo $row['email'];?></td>
+                 </tr>
+<?php endforeach; ?>
+            </table>
+        </body>
+    </html>
