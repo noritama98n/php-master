@@ -1,3 +1,9 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $name = $_POST['name'];
+}
+
+?>
 <?php 
     
     $dsn = "mysql:host=db; dbname=sample";
