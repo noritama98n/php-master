@@ -24,12 +24,11 @@ try{
     LIMIT 1
 SQL;
     
-    $stm = $dbh->prepare($sql);
+    $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    var_dump($row);
     
 }catch(PDOException $e){
     echo ('接続エラー：'.$e->getMessage());
@@ -53,6 +52,9 @@ SQL;
             </form>
         </div>
         <h1>会員データ</h1>
+        <?php if ($row === FALSE):?>
+        <p>存在しない会員IDです</p>
+        <?php else:?>
         <table border="1">
             <tr>
                 <th>お名前</th>
@@ -66,9 +68,9 @@ SQL;
                 <td><?php echo $row['age'];?></td>
                 <td><?php echo $row['club_name'];?></td>
                 <td><?php echo $row['count'];?></td>
-                <td><?php echo $row['name'];?></td>
-                <td><?php echo nl12br($row ['overview']);?></td>
+                <td><?php echo nl2br($row['overview']);?></td>
             </tr>
         </table>
+<?php endif; ?>
     </body>
 </html>
