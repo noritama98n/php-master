@@ -35,4 +35,16 @@ function get_db_Connect(){
     $dbh->(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
 }
+function insert_comment($dbh,$name,$comment){
+
+    $date = date('Y-m-d  H:i:s');
+    $sql = "INSERT INTO board (name,comment, created) VALUE(:name, :comment,'{$date}')";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':name',$name, PDO::PARAM_STR);
+    $stmt->bindValue(':comment',$comment, PDO::PARAM_STR);
+    if(!$stmt->execute()){
+        return 'データの書き込みに失敗しました';
+    }
+
+}
 ?>
