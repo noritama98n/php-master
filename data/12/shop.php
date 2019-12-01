@@ -10,7 +10,6 @@ if(isset($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
     var_dump($cart);
 }
-
 ?>
 <html>
     <body>
