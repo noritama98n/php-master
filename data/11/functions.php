@@ -1,15 +1,16 @@
 <?php
+//出力前に特殊文字に変換する
 function html_escape($word){
     return htmlspecialchars($word, ENT_QUOTES, 'UTF-8');
 }
-
+//POSTデータを取得する
 function get_post($key){
     if(isset($_POST[$key])){
         $var = trim($_POST[$key]);
         return $var;
     }
 }
-
+//文字列の長さをチェックする
 function check_words($word, $length){
     if(mb_strlen($word) === 0){
         return FALSE;
@@ -19,7 +20,7 @@ function check_words($word, $length){
         return TRUE;
     }
 }
-
+//データベースに接続する
 function get_db_Connect(){
     try{
         $dsn = "mysql:host=db; dbname=sample";
@@ -29,12 +30,13 @@ function get_db_Connect(){
 
         $dbh = new PDO($dsn, $user, $password);
     }catch(PDOException $e){
-        print($e->getMessage());
+        echo ($e->getMessage());
         die();
     }
-    $dbh->(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
 }
+//コメントを書き込む
 function insert_comment($dbh,$name,$comment){
 
     $date = date('Y-m-d  H:i:s');
@@ -45,6 +47,16 @@ function insert_comment($dbh,$name,$comment){
     if(!$stmt->execute()){
         return 'データの書き込みに失敗しました';
     }
-
+}
+//全コメントデータを取得する
+function select_comments($dbh){
+    $data = [];
+    $sql = "SELECT name, comment,created FROM board";
+    $stmt = $dbh->prepare ($sql);
+    $stmt->execute();
+    while($row =  $stmt->fetch(PDO::FETCH_ASSOC)){
+        $data[] = $row;
+    }
+    return $data;
 }
 ?>
